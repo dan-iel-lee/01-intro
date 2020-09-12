@@ -160,7 +160,8 @@ jn (Just Nothing) = Nothing
 jn Nothing = Nothing
 
 jn' :: Maybe (Maybe a) -> Maybe a
-jn' = undefined
+jn' (Just (Just x)) = Just x
+jn' _ = Nothing
 
 location :: String -> Maybe String
 location "cis501" = Just "Wu & Chen"
@@ -199,7 +200,7 @@ c1 = True : [False, False]
 c2 :: [Int]
 c2 = 1 : []
 
--- undefined: fill in the type of c3
+c3 :: [[a]]
 c3 = [] : []
 
 s1 :: [Char]
@@ -232,9 +233,9 @@ testRange = TestList [ range 3  6  ~?= [3,4,5,6],
                        range 42 42 ~?= [42],
                        range 10 5  ~?= [] ]
 
-range :: Int -> Int -> [Int]
-
-range i j = undefined
+range i j 
+   | i > j = []
+   | otherwise = i : range (i+1) j
 
 runRTests :: IO Counts
 runRTests = runTestTT testRange
